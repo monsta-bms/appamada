@@ -1,5 +1,8 @@
 {
 "name" : "不放逸",
 "symbol" : "Lv",
-"data_url" : "https://script.google.com/macros/s/AKfycbxjN64e9u6vLkDrRpv4aiqRIze_XrLXY3Sear_hwJDxH7l16CTebz4LNUiGTwFvE7RIRg/exec"
+"data_url" : "https://script.google.com/macros/s/AKfycbxjN64e9u6vLkDrRpv4aiqRIze_XrLXY3Sear_hwJDxH7l16CTebz4LNUiGTwFvE7RIRg/exec",
+"name2" : "裏不放逸",
+"symbol2" : "Lv",
+"data_url2" : "https://script.google.com/macros/s/AKfycbyHnz3it3gKZ9peT2k6svgSIgERDC6fJOGiyhBAs3j-zOx1fgeBumhtrWrqlS8ukuQI/exec"
 }
