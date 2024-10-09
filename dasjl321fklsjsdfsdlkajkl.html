@@ -40,7 +40,7 @@
         </div>
         <script language="javascript" type="text/javascript">
             $(document).ready(function () {
-                $.getJSON($("meta[name=bmstable]").attr("content"), function (header2) {
+                $.getJSON($("meta[name=bmstable]").attr("content"), function (header) {
                     $.getJSON(header2.data_url, function (information) {
                         makeBMSTable(information, header2.symbol);
                     });
