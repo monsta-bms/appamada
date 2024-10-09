@@ -41,8 +41,8 @@
         <script language="javascript" type="text/javascript">
             $(document).ready(function () {
                 $.getJSON($("meta[name=bmstable]").attr("content"), function (header) {
-                    $.getJSON(header2.data_url, function (information) {
-                        makeBMSTable(information, header2.symbol);
+                    $.getJSON(header.data_url, function (information) {
+                        makeBMSTable(information, header.symbol);
                     });
                 });
             });
