@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>使い方 | 不放逸</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header"><nav class="site-nav shell"><a class="brand" href="./"><span class="brand-mark">☸</span><span class="brand-text">不放逸</span></a><div class="nav-links"><a class="nav-link" href="./">難易度表</a><a class="nav-link" aria-current="page" href="guide.html">使い方</a><a class="nav-link" href="changelog.html">更新履歴</a><a class="nav-link nav-link-primary" href="https://raw.githubusercontent.com/monsta-bms/appamada-tools/main/dist/appamada_bmsir_submit.user.js">Userscriptを導入</a></div></nav></header>
+<main class="guide-main">
+  <section class="guide-hero"><p class="eyebrow">Guide</p><h1>Userscriptの使い方</h1><p>BMSIRの譜面ページから、不放逸への新規譜面申請と難易度変更申請を送れます。</p><div class="hero-actions"><a class="button button-primary" href="https://raw.githubusercontent.com/monsta-bms/appamada-tools/main/dist/appamada_bmsir_submit.user.js">Userscriptを導入</a><a class="button" href="./">難易度表へ戻る</a></div></section>
+
+  <section class="guide-section"><h2>1. 導入</h2><ol class="step-list"><li><strong>Tampermonkey または Violentmonkey を用意</strong><span>普段使っているブラウザにUserscriptマネージャーを導入します。</span></li><li><strong>「Userscriptを導入」を押す</strong><span>スクリプトのインストール画面が開いたら内容を確認してインストールします。</span></li><li><strong>BMSIRへログイン</strong><span>申請時にBMSIRユーザー名とプレイヤーIDを取得するため、ログイン状態で使用します。</span></li></ol></section>
+
+  <section class="guide-section"><h2>2. 申請する</h2><div class="guide-grid"><div class="guide-card"><h3>難易度変更申請</h3><ul><li>不放逸に登録済みの譜面で使用します。</li><li>BMSIRの曲名またはartistを右クリックします。</li><li>「難易度変更申請」を選びます。</li><li>↑ / ↓ または特殊レベルを選び、必要ならコメントを書いて送信します。</li></ul></div><div class="guide-card"><h3>新規譜面申請</h3><ul><li>不放逸に未登録の譜面で使用します。</li><li>BMSIRの曲名またはartistを右クリックします。</li><li>「新規譜面申請」を選びます。</li><li>難易度を選び、必要ならコメントを書いて送信します。</li></ul></div></div><div class="guide-note">Shiftを押しながら右クリックした場合は、通常のブラウザメニューを優先します。</div></section>
+
+  <section class="guide-section"><h2>3. 申請できる難易度</h2><p class="level-list">☸0 ～ ☸9 / ☸10- / ☸10 / ☸10+ / ☸11- / ☸11 / ☸11+ / ☸12- / ☸12 / ☸12+ / ☸13 / ☸13+ / ☸14 / ☸15 / ☸16 / ☸? / ☸★★4? / ☸★★5? / ☸★★6? / ☸★★7?</p><p class="guide-note">hst / sst / zst / 穴 はこのUserscriptの申請対象外です。</p></section>
+
+  <section class="guide-section"><h2>4. 申請後</h2><p>送信した内容はすぐに難易度表へ反映されません。管理者が内容を確認し、問題がなければ反映します。</p><div class="guide-grid"><div class="guide-card"><h3>難易度変更</h3><p>反映時に現在の難易度が申請時から変わっている場合は、自動上書きせず確認待ちになります。</p></div><div class="guide-card"><h3>新規譜面</h3><p>曲名・artistは管理者が表記を確認し、必要に応じて整えてから登録します。</p></div></div></section>
+
+  <section class="guide-section"><h2>うまく動かないとき</h2><div class="guide-grid"><div class="guide-card"><h3>右クリックメニューが出ない</h3><p>BMSIRの <span class="code-like">/new/song</span> 譜面ページで、曲名またはその直下のartistを右クリックしてください。</p></div><div class="guide-card"><h3>申請できないと表示される</h3><p>登録済み譜面への新規申請、未登録譜面への難易度変更など、申請種別と現在の登録状態が合っていない可能性があります。</p></div></div></section>
+</main>
+<footer class="site-footer shell">不放逸 — Userscript Guide</footer>
+</body>
+</html>

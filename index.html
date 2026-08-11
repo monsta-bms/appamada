@@ -1,140 +1,93 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <title>不放逸</title>
-    <meta name="robots" content="noindex" />
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="bmstable" content="header.json" />
-    <style>
-        html.blocked-referrer body {
-            visibility: hidden;
-        }
-    </style>
-    <script>
-        function isBlockedReferrer(referrer) {
-            if (!referrer) {
-                return false;
-            }
-
-            try {
-                const url = new URL(referrer);
-                const hostname = url.hostname
-                    .toLowerCase()
-                    .replace(/\.$/, "");
-
-                return hostname === "darksabun.club" ||
-                    hostname.endsWith(".darksabun.club");
-            } catch (error) {
-                return false;
-            }
-        }
-
-        window.appamadaBlockedReferrer = isBlockedReferrer(document.referrer);
-        if (window.appamadaBlockedReferrer) {
-            document.documentElement.classList.add("blocked-referrer");
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="bmstable" content="header.json">
+  <title>不放逸</title>
+  <link rel="stylesheet" href="style.css">
+  <style>html.blocked-referrer body{visibility:hidden}</style>
+  <script>
+    function isBlockedReferrer(referrer){if(!referrer)return false;try{const hostname=new URL(referrer).hostname.toLowerCase().replace(/\.$/,"");return hostname==="darksabun.club"||hostname.endsWith(".darksabun.club")}catch{return false}}
+    window.appamadaBlockedReferrer=isBlockedReferrer(document.referrer);
+    if(window.appamadaBlockedReferrer)document.documentElement.classList.add("blocked-referrer");
+  </script>
 </head>
-
 <body>
-    <header class="mb-3">
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">不放逸</span>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="alert alert-success mb-3" role="alert">
-        <p>可能な限り多くの高難易度譜面を記載することを目的とした難易度表です。darksabun関係者の関与はお断りしています。</p>
-        </div>
-
-
-        <!--ここから難易度表本体-->
-        <div>
-            <table class="table table-light table-striped table-hover" id="table_int">
-            </table>
-        </div>
-        <script language="javascript" type="text/javascript">
-            if (window.appamadaBlockedReferrer) {
-                document.title = "Access denied";
-                document.body.innerHTML =
-                    '<main class="container py-5">' +
-                    '<h1 class="h3 mb-3">Access denied</h1>' +
-                    '<p>この参照元からのアクセスは許可されていません。</p>' +
-                    '</main>';
-                document.documentElement.classList.remove("blocked-referrer");
-            } else {
-                $(document).ready(function () {
-                    $.getJSON($("meta[name=bmstable]").attr("content"), function (header) {
-                        $.getJSON(header.data_url, function (information) {
-                            makeBMSTable(information, header.symbol);
-                        });
-                    });
-                });
-            }
-
-            function makeBMSTable(info, mark) {
-                var x = "";
-                var ev = "";
-                var count = 0;
-                var obj = $("#table_int");
-
-                obj.html("");
-                $("<thead class='table-dark'><tr><th>Level</th><th>Title</th><th>Artist</th><th>Comment</th></tr></thead><tbody>")
-                    .appendTo(obj);
-                var obj_sep = null;
-                for (var i = 0; i < info.length; i++) {
-                    if (x != info[i].level) {
-                        if (obj_sep != null) {
-                            obj_sep.html("<td colspan='4'>" + "<b>" + mark + x + " (" + count +
-                                "譜面)</b></td>");
-                        }
-                        obj_sep = $("<tr class='table-dark' style='text-align:center' id='" + mark + info[i].level +
-                            "'></tr>");
-                        obj_sep.appendTo(obj);
-                        count = 0;
-                        x = info[i].level;
-                    }
-
-                    var str = $("<tr></tr>");
-
-                    // Level
-                    $("<td width='5%'>" + mark + x + "</td>").appendTo(str);
-
-                    // Title
-                    $("<td width='45%'>" +
-                        "<a href='http://www.dream-pro.info/~lavalse/LR2IR/search.cgi?mode=ranking&bmsmd5=" + info[
-                            i]
-                        .md5 + "' target='_blank'>" + info[i].title + "</a></td>").appendTo(str);
-
-                    // Artist
-                    $("<td width='40%'>" + info[i].artist + "</td>").appendTo(str);
-
-                    // Comment
-                    $("<td width='10%'>" + info[i].comment + "</td>").appendTo(str);
-                    str.appendTo(obj);
-                    count++;
-
-                }
-                $("</tbody>").appendTo(obj);
-
-                if (obj_sep != null) {
-                    obj_sep.html("<td class='table-dark' style='text-align:center' colspan='4'>" + "<b>" + mark + x +
-                        " (" + count + "譜面)</b></td>");
-                }
-            }
-        </script>
+<header class="site-header">
+  <nav class="site-nav shell" aria-label="メインナビゲーション">
+    <a class="brand" href="./"><span class="brand-mark">☸</span><span class="brand-text">不放逸</span></a>
+    <div class="nav-links">
+      <a class="nav-link" aria-current="page" href="./">難易度表</a>
+      <a class="nav-link" href="guide.html">使い方</a>
+      <a class="nav-link" href="changelog.html">更新履歴</a>
+      <a class="nav-link nav-link-primary" href="https://raw.githubusercontent.com/monsta-bms/appamada-tools/main/dist/appamada_bmsir_submit.user.js">Userscriptを導入</a>
     </div>
+  </nav>
+</header>
+<main>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">BMS Difficulty Table</p>
+        <h1>不放逸</h1>
+        <p class="hero-description">可能な限り多くの高難易度譜面を記載することを目的としたBMS難易度表です。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://raw.githubusercontent.com/monsta-bms/appamada-tools/main/dist/appamada_bmsir_submit.user.js">Userscriptを導入</a>
+          <a class="button" href="guide.html">申請方法を見る</a>
+        </div>
+        <div class="notice"><strong>案内</strong><span>BMSIRの譜面ページから、右クリックで新規譜面・難易度変更の申請ができます。darksabun関係者の関与はお断りしています。</span></div>
+      </div>
+      <div class="hero-stats" aria-label="難易度表の統計">
+        <div class="stat"><span class="stat-value" id="chart-count">—</span><span class="stat-label">登録譜面</span></div>
+        <div class="stat"><span class="stat-value" id="level-count">—</span><span class="stat-label">レベル区分</span></div>
+      </div>
+    </section>
 
+    <section class="table-section" aria-labelledby="table-heading">
+      <div class="section-heading"><div><p class="eyebrow">Table</p><h2 id="table-heading">難易度表</h2></div><p>タイトルを押すとLR2IRを開きます。</p></div>
+      <div class="level-nav-wrap"><div class="level-nav" id="level-nav" aria-label="レベル移動"></div></div>
+      <div class="table-card"><div class="table-scroll">
+        <table class="difficulty-table" id="table_int">
+          <colgroup><col style="width:8%"><col style="width:38%"><col style="width:36%"><col style="width:18%"></colgroup>
+          <thead><tr><th>Level</th><th>Title</th><th>Artist</th><th>Comment</th></tr></thead>
+          <tbody id="table-body"><tr><td colspan="4" class="table-message">読み込み中…</td></tr></tbody>
+        </table>
+      </div></div>
+    </section>
+  </div>
+</main>
+<footer class="site-footer shell">不放逸 — BMS Difficulty Table</footer>
+<script>
+(function(){
+  if(window.appamadaBlockedReferrer){document.title="Access denied";document.body.innerHTML='<main class="shell"><section class="guide-section"><h1>Access denied</h1><p>この参照元からのアクセスは許可されていません。</p></section></main>';document.documentElement.classList.remove("blocked-referrer");return;}
+  const body=document.getElementById("table-body"), nav=document.getElementById("level-nav");
+  const text=(v)=>String(v??"");
+  const safeId=(level)=>"level-"+encodeURIComponent(level).replace(/%/g,"-");
+  const td=(className,value)=>{const el=document.createElement("td");el.className=className;el.textContent=text(value);return el;};
+  async function load(){
+    try{
+      const header=await fetch(document.querySelector('meta[name="bmstable"]').content,{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("header");return r.json()});
+      const info=await fetch(header.data_url,{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("data");return r.json()});
+      render(info,header.symbol||"");
+    }catch(error){console.error("[appamada] table load failed",error);body.innerHTML='<tr><td colspan="4" class="table-message table-message-error">難易度表を読み込めませんでした。時間を置いて再読み込みしてください。</td></tr>';}
+  }
+  function render(info,mark){
+    body.replaceChildren();nav.replaceChildren();
+    const groups=[];let current=null;
+    for(const item of info){if(!current||current.level!==item.level){current={level:item.level,items:[]};groups.push(current)}current.items.push(item)}
+    const frag=document.createDocumentFragment();
+    for(const group of groups){
+      const id=safeId(group.level);
+      const chip=document.createElement("a");chip.className="level-chip";chip.href="#"+id;chip.textContent=mark+group.level;nav.appendChild(chip);
+      const sep=document.createElement("tr");sep.className="level-divider";sep.id=id;const cell=document.createElement("td");cell.colSpan=4;cell.append(document.createTextNode(mark+group.level));const count=document.createElement("span");count.className="level-count";count.textContent=`(${group.items.length}譜面)`;cell.appendChild(count);sep.appendChild(cell);frag.appendChild(sep);
+      for(const item of group.items){const tr=document.createElement("tr");tr.className="data-row";tr.appendChild(td("level-cell",mark+group.level));const title=document.createElement("td");title.className="title-cell";const a=document.createElement("a");a.href="http://www.dream-pro.info/~lavalse/LR2IR/search.cgi?mode=ranking&bmsmd5="+encodeURIComponent(item.md5);a.target="_blank";a.rel="noopener noreferrer";a.textContent=text(item.title);title.appendChild(a);tr.appendChild(title);tr.appendChild(td("artist-cell",item.artist));tr.appendChild(td("comment-cell",item.comment));frag.appendChild(tr)}
+    }
+    body.appendChild(frag);document.getElementById("chart-count").textContent=info.length.toLocaleString("ja-JP");document.getElementById("level-count").textContent=groups.length.toLocaleString("ja-JP");
+  }
+  load();
+})();
+</script>
+</body>
 </html>
